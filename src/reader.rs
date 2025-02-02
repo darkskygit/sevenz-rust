@@ -105,7 +105,7 @@ impl<R: Read + Seek> SeekableBoundedReader<R> {
     }
 }
 
-struct Crc32VerifyingReader<R> {
+pub struct Crc32VerifyingReader<R> {
     inner: R,
     crc_digest: crc::Digest<'static, u32>,
     expected_value: u64,
@@ -113,7 +113,7 @@ struct Crc32VerifyingReader<R> {
 }
 
 impl<R: Read> Crc32VerifyingReader<R> {
-    fn new(inner: R, remaining: usize, expected_value: u64) -> Self {
+    pub fn new(inner: R, remaining: usize, expected_value: u64) -> Self {
         Self {
             inner,
             crc_digest: CRC32.digest(),
@@ -1147,7 +1147,15 @@ impl<R: Read + Seek> SevenZReader<R> {
         &self.archive
     }
 
-    fn build_decode_stack<'r>(
+    pub fn source(&mut self) -> &mut R {
+        &mut self.source
+    }
+
+    pub fn password(&self) -> &[u8] {
+        &self.password
+    }
+
+    pub fn build_decode_stack<'r>(
         source: &'r mut R,
         archive: &Archive,
         folder_index: usize,

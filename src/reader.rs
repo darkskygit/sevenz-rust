@@ -1078,7 +1078,7 @@ impl<'a, R: Read> NamesReader<'a, R> {
     }
 }
 
-impl<'a, R: Read> Iterator for NamesReader<'a, R> {
+impl<R: Read> Iterator for NamesReader<'_, R> {
     type Item = Result<String, Error>;
 
     fn next(&mut self) -> Option<Self::Item> {

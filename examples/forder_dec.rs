@@ -13,11 +13,9 @@ fn main() {
     for folder_index in 0..folder_count {
         let forder_dec = BlockDecoder::new(folder_index, &archive, password.as_slice(), &mut file);
 
-        if forder_dec
+        if !forder_dec
             .entries()
-            .iter()
-            .find(|entry| entry.name() == my_file_name)
-            .is_none()
+            .iter().any(|entry| entry.name() == my_file_name)
         {
             // skip the folder if it does not contain the file we want
             continue;

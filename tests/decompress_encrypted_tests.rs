@@ -1,10 +1,10 @@
-use sevenz_rust::*;
-use std::{fs::read_to_string, path::PathBuf};
-use tempfile::tempdir;
-
 #[cfg(feature = "aes256")]
 #[test]
 fn test_decompress_file_with_password() {
+    use sevenz_rust::*;
+    use std::{fs::read_to_string, path::PathBuf};
+    use tempfile::tempdir;
+
     let mut source_file = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
     source_file.push("tests/resources/encrypted.7z");
     let temp_dir = tempdir().unwrap();

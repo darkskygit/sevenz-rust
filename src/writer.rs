@@ -665,7 +665,7 @@ impl<'a, W: Write> CompressWrapWriter<'a, W> {
     }
 }
 
-impl<'a, W: Write> Write for CompressWrapWriter<'a, W> {
+impl<W: Write> Write for CompressWrapWriter<'_, W> {
     fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
         self.cache.resize(buf.len(), Default::default());
         let len = self.writer.write(buf)?;
